@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        template="/templates/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+   <ui:define name="titulo">Facturas Emitidas – FitSystem</ui:define>
+
+   <ui:define name="contenido">
+      <div class="content-header">
+         <h1>💳 Facturas</h1>
+         <a href="form.xhtml" class="btn btn-primary">➕ Nueva Venta</a>
+      </div>
+
+      <section class="table-section">
+         <div class="table-responsive">
+            <table class="data-table">
+               <thead>
+               <tr>
+                  <th>#</th><th>Número</th><th>Fecha</th><th>Cliente</th><th>Total (USD)</th><th>Acciones</th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr>
+                  <td>1</td><td>FAC-1001</td><td>2025-07-01</td><td>Ana Pérez</td><td>$150.00</td>
+                  <td class="table-actions">
+                     <a href="view.xhtml?id=1" class="btn btn-primary">📄 Ver Reporte</a>
+                     <button class="btn btn-delete" onclick="return confirm('¿Anular FAC-1001?')">🚫 Anular</button>
+                  </td>
+               </tr>
+               <tr>
+                  <td>2</td><td>FAC-1002</td><td>2025-07-05</td><td>Carlos Gómez</td><td>$75.50</td>
+                  <td class="table-actions">
+                     <a href="view.xhtml?id=2" class="btn btn-primary">📄 Ver Reporte</a>
+                     <button class="btn btn-delete" onclick="return confirm('¿Anular FAC-1002?')">🚫 Anular</button>
+                  </td>
+               </tr>
+               </tbody>
+            </table>
+         </div>
+      </section>
+   </ui:define>
+</ui:composition>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        template="/templates/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="titulo">Gestión de Usuarios</ui:define>
+
+    <ui:define name="contenido">
+        <div class="content-header">
+            <h1>👥 Gestión de Usuarios</h1>
+            <a href="form.xhtml" class="btn btn-primary">➕ Nuevo Usuario</a>
+        </div>
+
+        <section class="table-section">
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>#</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Juan Pérez</td>
+                        <td>juan@ejemplo.com</td>
+                        <td>Administrador</td>
+                        <td>
+                            <a href="form.xhtml?id=1" class="btn btn-edit">✏️ Editar</a>
+                            <button class="btn btn-delete" onclick="return confirm('¿Seguro?')">🗑️ Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>María Gómez</td>
+                        <td>maria@ejemplo.com</td>
+                        <td>Empleado</td>
+                        <td>
+                            <a href="form.xhtml?id=2" class="btn btn-edit">✏️ Editar</a>
+                            <button class="btn btn-delete" onclick="return confirm('¿Seguro?')">🗑️ Eliminar</button>
+                        </td>
+                    </tr>
+                    <!-- más filas de ejemplo -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </ui:define>
+
+</ui:composition>

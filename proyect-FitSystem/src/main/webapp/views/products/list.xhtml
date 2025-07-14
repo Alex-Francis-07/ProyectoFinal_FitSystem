@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        template="/templates/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="titulo">Gestión de Productos</ui:define>
+
+    <ui:define name="contenido">
+        <div class="content-header">
+            <h1>📦 Gestión de Productos</h1>
+            <a href="form.xhtml" class="btn btn-primary">➕ Nuevo Producto</a>
+        </div>
+
+        <section class="table-section">
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Categoría</th>
+                        <th>Stock</th>
+                        <th>Precio Unitario</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>PROD-001</td>
+                        <td>Matrícula Gimnasio</td>
+                        <td>Acceso mensual al gimnasio</td>
+                        <td>Membresía</td>
+                        <td>150</td>
+                        <td>$25.00</td>
+                        <td>
+                            <a href="form.xhtml?id=1" class="btn btn-edit">✏️ Editar</a>
+                            <button class="btn btn-delete" onclick="return confirm('¿Seguro que deseas eliminar?')">🗑️ Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>PROD-002</td>
+                        <td>Batido Proteico</td>
+                        <td>Suplemento proteína 30g</td>
+                        <td>Suplemento</td>
+                        <td>200</td>
+                        <td>$3.50</td>
+                        <td>
+                            <a href="form.xhtml?id=2" class="btn btn-edit">✏️ Editar</a>
+                            <button class="btn btn-delete" onclick="return confirm('¿Seguro que deseas eliminar?')">🗑️ Eliminar</button>
+                        </td>
+                    </tr>
+                    <!-- Más filas de ejemplo -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </ui:define>
+
+</ui:composition>

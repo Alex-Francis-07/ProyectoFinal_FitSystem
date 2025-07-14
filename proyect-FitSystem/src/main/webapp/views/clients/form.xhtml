@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        template="/templates/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="titulo">Registro / Edición de Cliente</ui:define>
+
+    <ui:define name="contenido">
+        <h1 class="form-title">📝 Registro / Edición de Cliente</h1>
+
+        <form class="form-card">
+            <div class="form-group">
+                <label for="nombres">👤 Nombres:</label>
+                <input type="text" id="nombres" name="nombres" class="form-control" placeholder="Ej: Ana"/>
+            </div>
+
+            <div class="form-group">
+                <label for="apellidos">👥 Apellidos:</label>
+                <input type="text" id="apellidos" name="apellidos" class="form-control" placeholder="Ej: Pérez"/>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">📞 Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" class="form-control" placeholder="0998765432"/>
+            </div>
+
+            <div class="form-group">
+                <label for="direccion">🏠 Dirección:</label>
+                <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Calle / Avenida, Ciudad"/>
+            </div>
+
+            <div class="form-group">
+                <label for="correo">📧 Correo Electrónico:</label>
+                <input type="email" id="correo" name="correo" class="form-control" placeholder="cliente@mail.com"/>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">💾 Guardar</button>
+                <a href="list.xhtml" class="btn btn-secondary">❌ Cancelar</a>
+            </div>
+        </form>
+    </ui:define>
+
+</ui:composition>

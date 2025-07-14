@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        template="/templates/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+   <ui:define name="titulo">Gestión de Clientes</ui:define>
+
+   <ui:define name="contenido">
+      <div class="content-header">
+         <h1>🧾 Gestión de Clientes</h1>
+         <a href="form.xhtml" class="btn btn-primary">➕ Nuevo Cliente</a>
+      </div>
+
+      <section class="table-section">
+         <div class="table-responsive">
+            <table class="data-table">
+               <thead>
+               <tr>
+                  <th>#</th>
+                  <th>Nombres</th>
+                  <th>Apellidos</th>
+                  <th>Teléfono</th>
+                  <th>Dirección</th>
+                  <th>Correo</th>
+                  <th>Acciones</th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr>
+                  <td>1</td>
+                  <td>Ana</td>
+                  <td>Pérez</td>
+                  <td>0998765432</td>
+                  <td>Calle 123, Quito</td>
+                  <td>ana.perez@mail.com</td>
+                  <td>
+                     <a href="form.xhtml?id=1" class="btn btn-edit">✏️ Editar</a>
+                     <button class="btn btn-delete" onclick="return confirm('¿Seguro que deseas eliminar?')">🗑️ Eliminar</button>
+                  </td>
+               </tr>
+               <tr>
+                  <td>2</td>
+                  <td>Carlos</td>
+                  <td>Gómez</td>
+                  <td>0987654321</td>
+                  <td>Avenida 456, Loja</td>
+                  <td>carlos.gomez@mail.com</td>
+                  <td>
+                     <a href="form.xhtml?id=2" class="btn btn-edit">✏️ Editar</a>
+                     <button class="btn btn-delete" onclick="return confirm('¿Seguro que deseas eliminar?')">🗑️ Eliminar</button>
+                  </td>
+               </tr>
+               <!-- Más filas de ejemplo -->
+               </tbody>
+            </table>
+         </div>
+      </section>
+   </ui:define>
+
+</ui:composition>

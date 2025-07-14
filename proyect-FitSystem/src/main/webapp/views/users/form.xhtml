@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        template="/templates/template.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="titulo">Registro / Edición de Usuario</ui:define>
+
+    <ui:define name="contenido">
+        <h1 class="form-title">📝 Registro / Edición de Usuario</h1>
+
+        <form class="form-card">
+            <div class="form-group">
+                <label for="name">👤 Nombre:</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Ej: Juan Pérez"/>
+            </div>
+
+            <div class="form-group">
+                <label for="email">📧 Correo Electrónico:</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="ejemplo@dominio.com"/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">🔒 Contraseña:</label>
+                <input type="password" id="password" name="password" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <label for="role">👥 Rol:</label>
+                <select id="role" name="role" class="form-control">
+                    <option value="">-- Seleccione un rol --</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Empleado">Empleado</option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">💾 Guardar</button>
+                <a href="list.xhtml" class="btn btn-secondary">❌ Cancelar</a>
+            </div>
+        </form>
+    </ui:define>
+
+</ui:composition>
