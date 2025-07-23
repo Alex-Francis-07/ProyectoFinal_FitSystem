@@ -1,44 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition
-        template="/templates/template.xhtml"
-        xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    template="/templates/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="titulo">Registro / Edición de Usuario</ui:define>
+  <!-- Metadatos para cargar en edición -->
+  <f:metadata>
+    <f:viewParam name="id"
+                 value="#{userBean.usuario.id_usuario}"
+                 converter="jakarta.faces.Long" />
+    <f:event type="preRenderView"
+             listener="#{userBean.loadUsuario}" />
+  </f:metadata>
 
-    <ui:define name="contenido">
-        <h1 class="form-title">📝 Registro / Edición de Usuario</h1>
+  <ui:define name="titulo">📝 Registro / Edición de Usuario</ui:define>
+  <ui:define name="contenido">
+    <h:form styleClass="form-card" prependId="false">
+      <h:messages globalOnly="true" styleClass="alert alert-error"/>
 
-        <form class="form-card">
-            <div class="form-group">
-                <label for="name">👤 Nombre:</label>
-                <input type="text" id="name" name="name" class="form-control" placeholder="Ej: Juan Pérez"/>
-            </div>
+      <!-- Nombre -->
+      <div class="form-group">
+        <h:outputLabel for="nombre" value="👤 Nombre:" styleClass="form-label"/>
+        <h:inputText id="nombre"
+                     value="#{userBean.usuario.nombre}"
+                     required="true"
+                     requiredMessage="El nombre es obligatorio"
+                     styleClass="form-control"/>
+        <h:message for="nombre" styleClass="error-message"/>
+      </div>
 
-            <div class="form-group">
-                <label for="email">📧 Correo Electrónico:</label>
-                <input type="email" id="email" name="email" class="form-control" placeholder="ejemplo@dominio.com"/>
-            </div>
+      <!-- Apellido -->
+      <div class="form-group">
+        <h:outputLabel for="apellido" value="👥 Apellido:" styleClass="form-label"/>
+        <h:inputText id="apellido"
+                     value="#{userBean.usuario.apellido}"
+                     required="true"
+                     requiredMessage="El apellido es obligatorio"
+                     styleClass="form-control"/>
+        <h:message for="apellido" styleClass="error-message"/>
+      </div>
 
-            <div class="form-group">
-                <label for="password">🔒 Contraseña:</label>
-                <input type="password" id="password" name="password" class="form-control"/>
-            </div>
+      <!-- Teléfono -->
+      <div class="form-group">
+        <h:outputLabel for="telefono" value="📞 Teléfono:" styleClass="form-label"/>
+        <h:inputText id="telefono"
+                     value="#{userBean.usuario.telefono}"
+                     styleClass="form-control"/>
+        <h:message for="telefono" styleClass="error-message"/>
+      </div>
 
-            <div class="form-group">
-                <label for="role">👥 Rol:</label>
-                <select id="role" name="role" class="form-control">
-                    <option value="">-- Seleccione un rol --</option>
-                    <option value="Administrador">Administrador</option>
-                    <option value="Empleado">Empleado</option>
-                </select>
-            </div>
+      <!-- Dirección -->
+      <div class="form-group">
+        <h:outputLabel for="direccion" value="🏠 Dirección:" styleClass="form-label"/>
+        <h:inputText id="direccion"
+                     value="#{userBean.usuario.direccion}"
+                     styleClass="form-control"/>
+        <h:message for="direccion" styleClass="error-message"/>
+      </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">💾 Guardar</button>
-                <a href="list.xhtml" class="btn btn-secondary">❌ Cancelar</a>
-            </div>
-        </form>
-    </ui:define>
+      <!-- Email -->
+      <div class="form-group">
+        <h:outputLabel for="email" value="📧 Correo Electrónico:" styleClass="form-label"/>
+        <h:inputText id="email"
+                     value="#{userBean.usuario.email}"
+                     required="true"
+                     requiredMessage="El email es obligatorio"
+                     styleClass="form-control"/>
+        <h:message for="email" styleClass="error-message"/>
+      </div>
 
+      <!-- Username -->
+      <div class="form-group">
+        <h:outputLabel for="username" value="🔑 Usuario:" styleClass="form-label"/>
+        <h:inputText id="username"
+                     value="#{userBean.usuario.username}"
+                     required="true"
+                     requiredMessage="El usuario es obligatorio"
+                     styleClass="form-control"/>
+        <h:message for="username" styleClass="error-message"/>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <h:outputLabel for="password" value="🔒 Contraseña:" styleClass="form-label"/>
+        <h:inputSecret id="password"
+                       value="#{userBean.usuario.password}"
+                       required="true"
+                       requiredMessage="La contraseña es obligatoria"
+                       styleClass="form-control"/>
+        <h:message for="password" styleClass="error-message"/>
+      </div>
+
+      <!-- Rol -->
+      <div class="form-group">
+        <h:outputLabel for="rol" value="👥 Rol:" styleClass="form-label"/>
+        <h:selectOneMenu id="rol"
+                         value="#{userBean.usuario.rol}"
+                         required="true"
+                         requiredMessage="Debe seleccionar un rol"
+                         styleClass="form-control">
+          <f:selectItem itemLabel="-- Seleccione un rol --" itemValue=""/>
+          <f:selectItem itemLabel="USER" itemValue="USER"/>
+          <f:selectItem itemLabel="ADMIN" itemValue="ADMIN"/>
+        </h:selectOneMenu>
+        <h:message for="rol" styleClass="error-message"/>
+      </div>
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <h:commandButton value="➕ Agregar Usuario"
+                         action="#{userBean.agregarUsuario}"
+                         rendered="#{userBean.usuario.id_usuario == null}"
+                         styleClass="btn btn-primary"/>
+        <h:commandButton value="✏️ Modificar Usuario"
+                         action="#{userBean.modificarUsuario}"
+                         rendered="#{userBean.usuario.id_usuario != null}"
+                         styleClass="btn btn-primary"/>
+        <h:commandButton value="❌ Cancelar"
+                         action="/views/users/list.xhtml?faces-redirect=true"
+                         immediate="true"
+                         styleClass="btn btn-secondary"/>
+      </div>
+    </h:form>
+  </ui:define>
 </ui:composition>
