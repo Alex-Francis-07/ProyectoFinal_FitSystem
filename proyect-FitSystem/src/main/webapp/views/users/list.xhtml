@@ -1,51 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition
-        template="/templates/template.xhtml"
-        xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+  template="/templates/template.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="titulo">Gestión de Usuarios</ui:define>
+  <ui:define name="titulo">Gestión de Usuarios</ui:define>
+  <ui:define name="contenido">
+    <h:form>
+      <div class="content-header">
+        <h1>👥 Gestión de Usuarios</h1>
+        <h:commandButton value="➕ Nuevo Usuario"
+                         action="#{userBean.crearUsuario}"
+                         styleClass="btn btn-primary"/>
+      </div>
 
-    <ui:define name="contenido">
-        <div class="content-header">
-            <h1>👥 Gestión de Usuarios</h1>
-            <a href="form.xhtml" class="btn btn-primary">➕ Nuevo Usuario</a>
-        </div>
-
-        <section class="table-section">
-            <div class="table-responsive">
-                <table class="data-table">
-                    <thead>
-                    <tr>
-                        <th>#</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Juan Pérez</td>
-                        <td>juan@ejemplo.com</td>
-                        <td>Administrador</td>
-                        <td>
-                            <a href="form.xhtml?id=1" class="btn btn-edit">✏️ Editar</a>
-                            <button class="btn btn-delete" onclick="return confirm('¿Seguro?')">🗑️ Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>María Gómez</td>
-                        <td>maria@ejemplo.com</td>
-                        <td>Empleado</td>
-                        <td>
-                            <a href="form.xhtml?id=2" class="btn btn-edit">✏️ Editar</a>
-                            <button class="btn btn-delete" onclick="return confirm('¿Seguro?')">🗑️ Eliminar</button>
-                        </td>
-                    </tr>
-                    <!-- más filas de ejemplo -->
-                    </tbody>
-                </table>
+      <div class="table-responsive">
+        <h:dataTable value="#{userBean.usuarios}"
+                     var="u"
+                     styleClass="data-table"
+                     headerClass="data-table-header">
+          <h:column>
+            <f:facet name="header">#</f:facet>
+            #{u.id_usuario}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Nombre Completo</f:facet>
+            #{u.nombre} #{u.apellido}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Correo</f:facet>
+            #{u.email}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Usuario</f:facet>
+            #{u.username}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Rol</f:facet>
+            #{u.rol}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Acciones</f:facet>
+            <div class="table-actions">
+              <h:commandLink action="#{userBean.editarUsuario(u)}"
+                             styleClass="btn-edit">
+                ✏️ Editar
+              </h:commandLink>
+              <h:commandLink action="#{userBean.eliminarUsuario(u)}"
+                             styleClass="btn-delete"
+                             onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">
+                🗑️ Eliminar
+              </h:commandLink>
             </div>
-        </section>
-    </ui:define>
-
+          </h:column>
+        </h:dataTable>
+      </div>
+    </h:form>
+  </ui:define>
 </ui:composition>

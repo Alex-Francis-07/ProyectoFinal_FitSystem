@@ -46,7 +46,7 @@ public class AuthBean implements Serializable {
         if (!resultados.isEmpty()) {
             usuarioAutenticado = resultados.get(0);
 
-            // ===== Opción A: exponer authBean en la sesión para el filtro =====
+            
             HttpSession session = (HttpSession)
                 FacesContext.getCurrentInstance()
                             .getExternalContext()
