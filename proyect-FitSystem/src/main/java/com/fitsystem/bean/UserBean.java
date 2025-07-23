@@ -1,4 +1,4 @@
- package com.fitsystem.bean;
+package com.fitsystem.bean;
 
 import com.fitsystem.model.Usuario;
 import jakarta.annotation.PostConstruct;
