@@ -1,51 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition
-        template="/templates/template.xhtml"
-        xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    template="/templates/template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="titulo">Registro / Edición de Producto</ui:define>
+  <!-- Metadata para precargar al editar -->
+  <f:metadata>
+    <f:viewParam name="id"
+                 value="#{productBean.producto.id_producto}"
+                 converter="jakarta.faces.Long" />
+    <f:event type="preRenderView"
+             listener="#{productBean.loadProducto}" />
+  </f:metadata>
 
-    <ui:define name="contenido">
-        <h1 class="form-title">📝 Registro / Edición de Producto</h1>
+  <ui:define name="titulo">📝 Registro / Edición de Producto</ui:define>
+  <ui:define name="contenido">
+    <h:form styleClass="form-card" prependId="false">
+      <h:messages globalOnly="true" styleClass="alert alert-error"/>
 
-        <form class="form-card">
-            <div class="form-group">
-                <label for="code">🔢 Código:</label>
-                <input type="text" id="code" name="code" class="form-control" placeholder="Ej: PROD-002"/>
-            </div>
+      <!-- Código -->
+      <div class="form-group">
+        <h:outputLabel for="codigo" value="🔖 Código:" styleClass="form-label"/>
+        <h:inputText id="codigo"
+                     value="#{productBean.producto.codigo}"
+                     required="true"
+                     requiredMessage="El código es obligatorio"
+                     styleClass="form-control"/>
+        <h:message for="codigo" styleClass="error-message"/>
+      </div>
 
-            <div class="form-group">
-                <label for="name">📦 Nombre:</label>
-                <input type="text" id="name" name="name" class="form-control" placeholder="Ej: Batido Proteico"/>
-            </div>
+      <!-- Nombre -->
+      <div class="form-group">
+        <h:outputLabel for="nombre" value="📛 Nombre:" styleClass="form-label"/>
+        <h:inputText id="nombre"
+                     value="#{productBean.producto.nombre}"
+                     required="true"
+                     requiredMessage="El nombre es obligatorio"
+                     styleClass="form-control"/>
+        <h:message for="nombre" styleClass="error-message"/>
+      </div>
 
-            <div class="form-group">
-                <label for="description">📝 Descripción:</label>
-                <textarea id="description" name="description" class="form-control" rows="3"
-                          placeholder="Descripción del producto"></textarea>
-            </div>
+      <!-- Descripción -->
+      <div class="form-group">
+        <h:outputLabel for="descripcion" value="📝 Descripción:" styleClass="form-label"/>
+        <h:inputTextarea id="descripcion"
+                         value="#{productBean.producto.descripcion}"
+                         rows="3"
+                         styleClass="form-control"/>
+        <h:message for="descripcion" styleClass="error-message"/>
+      </div>
 
-            <div class="form-group">
-                <label for="category">📂 Categoría:</label>
-                <input type="text" id="category" name="category" class="form-control" placeholder="Ej: Suplemento"/>
-            </div>
+      <!-- Categoría -->
+      <div class="form-group">
+        <h:outputLabel for="categoria" value="🏷️ Categoría:" styleClass="form-label"/>
+        <h:inputText id="categoria"
+                     value="#{productBean.producto.categoria}"
+                     styleClass="form-control"/>
+        <h:message for="categoria" styleClass="error-message"/>
+      </div>
 
-            <div class="form-group">
-                <label for="stock">📦 Stock:</label>
-                <input type="number" id="stock" name="stock" class="form-control" placeholder="Ej: 150"/>
-            </div>
+      <!-- Stock -->
+      <div class="form-group">
+        <h:outputLabel for="stock" value="📦 Stock:" styleClass="form-label"/>
+        <h:inputText id="stock"
+                     value="#{productBean.producto.stock}"
+                     required="true"
+                     requiredMessage="El stock es obligatorio"
+                     styleClass="form-control">
+          <f:validateLongRange minimum="0"
+                               message="El stock debe ser ≥ 0"/>
+        </h:inputText>
+        <h:message for="stock" styleClass="error-message"/>
+      </div>
 
-            <div class="form-group">
-                <label for="price">💲 Precio Unitario (USD):</label>
-                <input type="number" step="0.01" id="price" name="price" class="form-control" placeholder="Ej: 3.50"/>
-            </div>
+      <!-- Precio Unitario -->
+      <div class="form-group">
+        <h:outputLabel for="precio" value="💲 Precio Unitario:" styleClass="form-label"/>
+        <h:inputText id="precio"
+                     value="#{productBean.producto.precioUnitario}"
+                     required="true"
+                     requiredMessage="El precio es obligatorio"
+                     styleClass="form-control">
+          <f:validateDoubleRange minimum="0.0"
+                                message="El precio debe ser ≥ 0"/>
+        </h:inputText>
+        <h:message for="precio" styleClass="error-message"/>
+      </div>
 
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">💾 Guardar</button>
-                <a href="list.xhtml" class="btn btn-secondary">❌ Cancelar</a>
-            </div>
-        </form>
-    </ui:define>
-
+      <!-- Botones -->
+      <div class="form-actions">
+        <h:commandButton value="➕ Agregar Producto"
+                         action="#{productBean.agregarProducto}"
+                         rendered="#{productBean.producto.id_producto == null}"
+                         styleClass="btn btn-primary"/>
+        <h:commandButton value="✏️ Modificar Producto"
+                         action="#{productBean.modificarProducto}"
+                         rendered="#{productBean.producto.id_producto != null}"
+                         styleClass="btn btn-primary"/>
+        <h:commandButton value="❌ Cancelar"
+                         action="/views/products/list.xhtml?faces-redirect=true"
+                         immediate="true"
+                         styleClass="btn btn-secondary"/>
+      </div>
+    </h:form>
+  </ui:define>
 </ui:composition>

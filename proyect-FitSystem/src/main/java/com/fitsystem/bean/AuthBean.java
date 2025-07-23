@@ -5,56 +5,41 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
-import java.io.Serializable;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.HttpSession;
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Formatter;
 import java.util.List;
 
 @Named("authBean")
 @SessionScoped
 public class AuthBean implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     private String username;
-    private String password;
+    private String password;  // contraseña en texto plano ingresada
     private Usuario usuarioAutenticado;
 
     @PersistenceContext(unitName = "fitsystemPU")
     private transient EntityManager em;
 
+    /**  
+     * Intenta autenticar al usuario: busca por username, compara hashes  
+     */
     @Transactional
     public String login() {
-        TypedQuery<Usuario> query = em.createQuery(
-            "SELECT u FROM Usuario u WHERE u.username = :username AND u.password = :password",
-            Usuario.class);
-        query.setParameter("username", username);
-        query.setParameter("password", password);
+        // 1) Buscar usuario por nombre de usuario
+        List<Usuario> resultados = em.createQuery(
+            "SELECT u FROM Usuario u WHERE u.username = :username", Usuario.class)
+            .setParameter("username", username)
+            .getResultList();
 
-        List<Usuario> resultados = query.getResultList();
-
-        System.out.println("DEBUG AuthBean.login(): encontrados " 
-            + resultados.size() 
-            + " usuario(s) para username='" 
-            + username 
-            + "': " 
-            + resultados);
-
-        if (!resultados.isEmpty()) {
-            usuarioAutenticado = resultados.get(0);
-
-            
-            HttpSession session = (HttpSession)
-                FacesContext.getCurrentInstance()
-                            .getExternalContext()
-                            .getSession(true);
-            session.setAttribute("authBean", this);
-
-            return "/views/dashboard.xhtml?faces-redirect=true";
-        } else {
+        if (resultados.isEmpty()) {
             FacesContext.getCurrentInstance()
                 .addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -62,10 +47,37 @@ public class AuthBean implements Serializable {
                                      null));
             return null;
         }
+
+        Usuario u = resultados.get(0);
+        // 2) Hashear la contraseña ingresada
+        String hashedInput = hashPassword(password);
+
+        // 3) Comparar hashes
+        if (!hashedInput.equals(u.getPassword())) {
+            FacesContext.getCurrentInstance()
+                .addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                     "Usuario o contraseña incorrectos",
+                                     null));
+            return null;
+        }
+
+        // 4) Autenticación exitosa: guardar en sesión
+        usuarioAutenticado = u;
+        HttpSession session = (HttpSession)
+            FacesContext.getCurrentInstance()
+                        .getExternalContext()
+                        .getSession(true);
+        session.setAttribute("authBean", this);
+
+        // 5) Redirigir al dashboard
+        return "/views/dashboard.xhtml?faces-redirect=true";
     }
 
+    /**
+     * Cierra la sesión y limpia datos
+     */
     public String logout() {
-        // Limpia la sesión
         HttpSession session = (HttpSession)
             FacesContext.getCurrentInstance()
                         .getExternalContext()
@@ -73,14 +85,30 @@ public class AuthBean implements Serializable {
         if (session != null) {
             session.invalidate();
         }
-
         usuarioAutenticado = null;
         username = null;
         password = null;
         return "/login.xhtml?faces-redirect=true";
     }
 
-    // Getters y setters
+    /**
+     * Hashea una contraseña en claro usando SHA-256
+     */
+    private String hashPassword(String plain) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(plain.getBytes(StandardCharsets.UTF_8));
+            Formatter fmt = new Formatter();
+            for (byte b : hash) {
+                fmt.format("%02x", b);
+            }
+            return fmt.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error al encriptar la contraseña", e);
+        }
+    }
+
+    // ——— Getters y Setters ———
 
     public String getUsername() {
         return username;

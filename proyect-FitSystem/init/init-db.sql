@@ -27,6 +27,7 @@ CREATE TABLE usuarios (
 -- Tabla: clientes
 CREATE TABLE clientes (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    cedula VARCHAR(20) NOT NULL UNIQUE,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
     telefono VARCHAR(20),
@@ -37,7 +38,7 @@ CREATE TABLE clientes (
 -- Tabla: productos
 CREATE TABLE productos (
     id_producto INT AUTO_INCREMENT PRIMARY KEY,
-    codigo VARCHAR(50),
+    codigo VARCHAR(50) NOT NULL UNIQUE,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT,
     categoria VARCHAR(50),
@@ -68,15 +69,17 @@ CREATE TABLE detalles_factura (
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto) ON DELETE CASCADE
 );
 
--- Insertar datos de ejemplo en usuarios (contraseña en texto plano "admin123", debes encriptar en la app)
+-- Insertar datos de ejemplo en usuarios la clave ya se incresa encriptada
+-- (la contraseña "admin" se ha encriptado previamente) y es admin12 la clave para poder ingresar
+-- al sistema.
 INSERT INTO usuarios (nombre, apellido, telefono, email, direccion, username, password, rol)
-VALUES ('Administrador', 'Principal', '0999999999', 'admin@fitsystem.com', 'Av. Central 123', 'admin', 'admin123', 'ADMIN');
+VALUES ('Administrador', 'Principal', '0999999999', 'admin@fitsystem.com', 'Av. Central 123', 'admin', '114663ab194edcb3f61d409883ce4ae6c3c2f9854194095a5385011d15becbef', 'ADMIN');
 
 -- Insertar datos de ejemplo en clientes
-INSERT INTO clientes (nombre, apellido, telefono, email, direccion)
+INSERT INTO clientes (cedula,nombre, apellido, telefono, email, direccion)
 VALUES 
-('Juan', 'Pérez', '0998887777', 'juan.perez@mail.com', 'Calle Falsa 123'),
-('María', 'González', '0987654321', 'maria.gonzalez@mail.com', 'Av. Siempre Viva 742');
+('00000000000','Juan', 'Pérez', '0998887777', 'juan.perez@mail.com', 'Calle Falsa 123'),
+('1111111111','María', 'González', '0987654321', 'maria.gonzalez@mail.com', 'Av. Siempre Viva 742');
 
 -- Insertar datos de ejemplo en productos
 INSERT INTO productos (codigo, nombre, descripcion, categoria, stock, precioUnitario)
