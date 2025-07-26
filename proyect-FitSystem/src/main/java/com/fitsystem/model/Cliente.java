@@ -33,14 +33,11 @@ public class Cliente extends Persona {
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
-    
+
 
     @Override
     public String getTipoPersona() {
         return "Cliente";
     }
 
-    public void solicitarFactura() {
-        // implementación en servicio
-    }
 }
