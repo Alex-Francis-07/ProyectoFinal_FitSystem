@@ -382,3 +382,106 @@ button.btn-primary:focus {
     min-height: 1.2rem;
     text-align: center;
 }
+/* ==== NUEVA VENTA PERSONALIZADA ==== */
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+    text-align: center;
+}
+
+.search-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: end;
+}
+
+.client-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #555;
+}
+
+.info-value {
+    background-color: #f8f9fa;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+}
+
+.product-form-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.totals-section {
+    display: grid;
+    justify-content: end;
+    max-width: 400px;
+    margin-left: auto;
+    margin-top: 2rem;
+    gap: 0.5rem;
+}
+
+.total-label {
+    font-weight: 600;
+    text-align: right;
+}
+
+.total-value {
+    text-align: right;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.grand-total {
+    color: #007bff;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: right;
+}
+
+/* === Botón Finalizar Venta === */
+.btn-save {
+    background-color: #28a745;
+    color: white;
+    padding: 0.9rem 2rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-save:hover {
+    background-color: #218838;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-left: 10px;
+  border-left: 5px solid #007bff;
+  color: #2c3e50;
+}
+
+.client-info-grid .info-label,
+.client-info-grid .info-value {
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}

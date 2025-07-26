@@ -32,7 +32,8 @@ public class AuthorizationFilter implements Filter {
         // Verificar si es un recurso que NO requiere autenticación
         boolean recursoPublico = reqURI.contains("/login.xhtml") ||
                                  reqURI.contains("/public/") ||
-                                 reqURI.contains("javax.faces.resource");
+                                 reqURI.contains("javax.faces.resource")||
+                                 reqURI.contains("/resources/");
 
         // Verificar si hay un usuario logueado en sesión
         boolean usuarioAutenticado = (session != null &&

@@ -3,147 +3,141 @@
         template="/templates/template.xhtml"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
         xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-   <ui:define name="titulo">Nueva Venta – FitSystem</ui:define>
+  <ui:define name="titulo">📋 Nueva Venta</ui:define>
+  <ui:define name="contenido">
+    <h:form prependId="false">
+      <h:messages globalOnly="true" styleClass="error-message"/>
 
-   <ui:define name="contenido">
-      <h1 class="form-title">📋 Nueva Venta</h1>
+      <!-- 1. Buscar cliente por cédula -->
+      <div class="form-card card-shadow">
+        <h3 class="section-title">👤 Datos del Cliente</h3>
 
-      <h:form prependId="false">
-         <!-- Datos del Cliente -->
-         <div class="form-card"
-              style="background-color: #e9f5fb;
-                  border: 1px solid #b5d7ea;
-                  border-radius: 6px;
-                  padding: 1rem;
-                  margin-bottom: 2rem;">
-            <div style="display: flex; gap: 1rem; align-items: flex-end;">
-               <div style="flex: 1;">
-                  <label for="nit">NIT:</label>
-                  <input type="text"
-                         id="nit"
-                         name="nit"
-                         class="form-control"
-                         placeholder="12345678"/>
-               </div>
-               <div style="flex: 2;">
-                  <label for="clienteNombre">Nombre:</label>
-                  <input type="text"
-                         id="clienteNombre"
-                         name="clienteNombre"
-                         class="form-control"
-                         placeholder="Fernanda García"/>
-               </div>
-               <div style="flex: 1;">
-                  <label for="telefonoCliente">Teléfono:</label>
-                  <input type="tel"
-                         id="telefonoCliente"
-                         name="telefonoCliente"
-                         class="form-control"
-                         placeholder="2147483647"/>
-               </div>
-            </div>
-            <div style="margin-top: 1rem;">
-               <label for="direccionCliente">Dirección:</label>
-               <input type="text"
-                      id="direccionCliente"
-                      name="direccionCliente"
-                      class="form-control"
-                      placeholder="Calzada Buena Vista"/>
-            </div>
-         </div>
+        <div class="client-search-section">
+          <h:panelGrid columns="4" columnClasses="label,value,button,empty" styleClass="search-grid">
+            <h:outputLabel for="cedula" value="Cédula:" styleClass="bold-label"/>
+            <h:inputText id="cedula"
+                         value="#{invoiceEditor.cedulaInput}"
+                         required="true"
+                         requiredMessage="La cédula es obligatoria"
+                         styleClass="form-input"/>
+            <h:commandButton value="🔍 Buscar Cliente"
+                             action="#{invoiceEditor.buscarCliente}"
+                             styleClass="btn btn-primary"/>
+            <h:panelGroup/> <!-- Espacio vacío -->
+          </h:panelGrid>
+        </div>
 
-         <!-- Agregar Ítem (mejorado) -->
-         <div class="form-card" style="padding:1rem; margin-bottom:2rem;">
-            <table class="data-table"
-                   style="width:100%;
-                      border-radius:6px;
-                      overflow:hidden;">
-               <thead style="background-color:#f1f3f5;">
-               <tr>
-                  <th style="padding:0.75rem;">Código</th>
-                  <th style="padding:0.75rem;">Descripción</th>
-                  <th style="padding:0.75rem; width:100px;">Existencia</th>
-                  <th style="padding:0.75rem; width:100px;">Cantidad</th>
-                  <th style="padding:0.75rem; width:120px;">Precio</th>
-                  <th style="padding:0.75rem; width:120px;">Precio Total</th>
-                  <th style="padding:0.75rem; width:80px;">Acción</th>
-               </tr>
-               </thead>
-               <tbody>
-               <tr>
-                  <td style="padding:0.5rem;">
-                     <input type="text"
-                            class="form-control"
-                            style="width:100%; padding:0.5rem; border-radius:4px;"
-                            placeholder="PROD-001"/>
-                  </td>
-                  <td style="text-align:center; color:#777;">-</td>
-                  <td style="text-align:center; color:#777;">-</td>
-                  <td style="padding:0.5rem;">
-                     <input type="number"
-                            class="form-control"
-                            style="width:100%; padding:0.5rem; border-radius:4px;"
-                            value="0"/>
-                  </td>
-                  <td style="padding:0.5rem;">
-                     <input type="number"
-                            class="form-control"
-                            style="width:100%; padding:0.5rem; border-radius:4px;"
-                            step="0.01"
-                            value="0.00"/>
-                  </td>
-                  <td style="text-align:center; font-weight:600;">0.00</td>
-                  <td style="text-align:center;">
-                     <button type="button" class="btn btn-primary" style="padding:0.4rem 0.6rem;">➕</button>
-                  </td>
-               </tr>
-               </tbody>
-            </table>
-         </div>
+        <div class="client-info-panel" rendered="#{not empty invoiceEditor.factura.cliente}">
+          <h:panelGrid columns="2" columnClasses="label,value" styleClass="client-info-grid">
+            <h:outputText value="Nombre Completo:" styleClass="info-label"/>
+            <h:outputText value="#{invoiceEditor.factura.cliente.nombreCompleto}" styleClass="info-value"/>
+            <h:outputText value="Teléfono:" styleClass="info-label"/>
+            <h:outputText value="#{invoiceEditor.factura.cliente.telefono}" styleClass="info-value"/>
+            <h:outputText value="Dirección:" styleClass="info-label"/>
+            <h:outputText value="#{invoiceEditor.factura.cliente.direccion}" styleClass="info-value"/>
+          </h:panelGrid>
+        </div>
+      </div>
 
-         <!-- Ítems Agregados y Totales -->
-         <div class="form-card" style="padding:0; margin-bottom:2rem;">
-            <table class="data-table"
-                   style="width:100%; border-bottom:none;">
-               <thead>
-               <tr>
-                  <th>Código</th><th>Descripción</th><th>Cantidad</th><th>Precio</th><th>Precio Total</th><th>Acción</th>
-               </tr>
-               </thead>
-               <tbody>
-               <tr>
-                  <td>PROD-001</td><td>Teclado USB</td><td>1</td><td>$250.00</td><td>$250.00</td>
-                  <td><button type="button" class="btn btn-delete">🗑️</button></td>
-               </tr>
-               <tr>
-                  <td>PROD-002</td><td>Monitor</td><td>1</td><td>$2000.00</td><td>$2000.00</td>
-                  <td><button type="button" class="btn btn-delete">🗑️</button></td>
-               </tr>
-               </tbody>
-            </table>
-            <table style="width:100%; margin-top:1rem;">
-               <tr>
-                  <td style="text-align:right; padding:.5rem;">SUBTOTAL</td>
-                  <td style="padding:.5rem; width:150px;">$2250.00</td>
-               </tr>
-               <tr>
-                  <td style="text-align:right; padding:.5rem;">IVA (12%)</td>
-                  <td style="padding:.5rem;">$270.00</td>
-               </tr>
-               <tr>
-                  <td style="text-align:right; padding:.5rem; font-weight:600;">TOTAL</td>
-                  <td style="padding:.5rem; font-weight:600;">$2520.00</td>
-               </tr>
-            </table>
-         </div>
+      <!-- 2. Agregar ítem -->
+      <div class="form-card card-shadow">
+        <h3 class="section-title">🛒 Agregar Productos</h3>
+        <h:panelGrid columns="3" columnClasses="label,value,button" cellpadding="5" styleClass="product-grid">
+          <h:outputLabel for="codigo" value="Código:" styleClass="bold-label"/>
+          <h:inputText id="codigo"
+                       value="#{invoiceEditor.codigoInput}"
+                       required="true"
+                       requiredMessage="El código del producto es obligatorio"
+                       styleClass="form-input"/>
+          <h:commandButton value="➕ Agregar Producto"
+                           action="#{invoiceEditor.agregarDetalle}"
+                           styleClass="btn btn-primary"/>
+          <h:message for="codigo" styleClass="error-message"/>
 
-         <!-- Acciones finales -->
-         <div style="display:flex; gap:1rem; justify-content:flex-end;">
-            <h:button value="🚫 Anular" outcome="list.xhtml" styleClass="btn btn-delete"/>
-            <button type="submit" class="btn btn-primary">💾 Guardar Factura</button>
-         </div>
-      </h:form>
-   </ui:define>
+          <h:outputLabel for="cantidad" value="Cantidad:" styleClass="bold-label"/>
+          <h:inputText id="cantidad"
+                       value="#{invoiceEditor.cantidadInput}"
+                       required="true"
+                       requiredMessage="La cantidad es obligatoria"
+                       styleClass="form-input">
+            <f:convertNumber integerOnly="true"/>
+          </h:inputText>
+          <h:message for="cantidad" styleClass="error-message"/>
+        </h:panelGrid>
+      </div>
+
+      <!-- 3. Listado de detalles -->
+      <div class="form-card card-shadow">
+        <h3 class="section-title">📋 Detalles de la Factura</h3>
+        <h:dataTable value="#{invoiceEditor.detalles}"
+                     var="d"
+                     styleClass="data-table responsive-table">
+          <h:column>
+            <f:facet name="header">Código</f:facet>
+            <h:outputText value="#{d.producto.codigo}" styleClass="table-cell"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Descripción</f:facet>
+            <h:outputText value="#{d.producto.nombre}" styleClass="table-cell"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Cant.</f:facet>
+            <h:outputText value="#{d.cantidad}" styleClass="table-cell"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Precio Unitario</f:facet>
+            <h:outputText value="#{d.precioUnitario}" styleClass="table-cell price">
+              <f:convertNumber minFractionDigits="2"/>
+            </h:outputText>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Subtotal</f:facet>
+            <h:outputText value="#{d.subtotal}" styleClass="table-cell price">
+              <f:convertNumber minFractionDigits="2"/>
+            </h:outputText>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Acciones</f:facet>
+            <h:commandLink value="🗑️ Eliminar"
+                           action="#{invoiceEditor.eliminarDetalle(d)}"
+                           styleClass="btn btn-delete"
+                           onclick="return confirm('¿Está seguro de eliminar este ítem?');"/>
+          </h:column>
+        </h:dataTable>
+
+        <!-- 4. Totales -->
+        <div class="totals-section">
+          <h:panelGrid columns="2" columnClasses="total-label,total-value">
+            <h:outputText value="Subtotal:" styleClass="total-label"/>
+            <h:outputText value="#{invoiceEditor.subtotal}" styleClass="total-value">
+              <f:convertNumber minFractionDigits="2"/>
+            </h:outputText>
+
+            <h:outputText value="IVA (12%):" styleClass="total-label"/>
+            <h:outputText value="#{invoiceEditor.iva}" styleClass="total-value">
+              <f:convertNumber minFractionDigits="2"/>
+            </h:outputText>
+
+            <h:outputText value="Total:" styleClass="total-label grand-total"/>
+            <h:outputText value="#{invoiceEditor.totalConIva}" styleClass="total-value grand-total">
+              <f:convertNumber minFractionDigits="2"/>
+            </h:outputText>
+          </h:panelGrid>
+        </div>
+      </div>
+
+      <!-- 5. Guardar factura -->
+      <div class="actions-section">
+        <h:commandButton value="💾 Guardar Factura"
+                         action="#{invoiceEditor.guardarFactura}"
+                         styleClass="btn btn-save"/>
+        <h:button value="🚫 Cancelar"
+                  outcome="/views/invoices/list.xhtml"
+                  styleClass="btn btn-save"/>
+      </div>
+    </h:form>
+  </ui:define>
 </ui:composition>

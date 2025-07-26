@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a82bc57-7cdb-4180-a6de-8259e475cd4d" name="Changes" comment="" />
+    <list default="true" id="0a82bc57-7cdb-4180-a6de-8259e475cd4d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fitsystem/model/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fitsystem/model/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fitsystem/model/Factura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fitsystem/model/Factura.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fitsystem/model/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fitsystem/model/Producto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fitsystem/security/AuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fitsystem/security/AuthorizationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/invoices/form.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/invoices/form.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/views/invoices/list.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/views/invoices/list.xhtml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +28,21 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Alex-Francis-07&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Alex-Francis-07/ProyectoFinal_FitSystem.git&quot;,
+    &quot;accountId&quot;: &quot;6bb3cc08-68fd-4bcb-a577-81123d36442a&quot;
+  }
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -42,8 +68,9 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/OneDrive/Documentos/proyecto2Fit/proyect-FitSystem&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;AlexSigcho&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/OneDrive/Documentos/Proyecto/ProyectoFinal_FitSystem/proyect-FitSystem&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -70,9 +97,8 @@
       <workItem from="1752427262468" duration="692000" />
       <workItem from="1752428952706" duration="3719000" />
       <workItem from="1752433672392" duration="7713000" />
-      <workItem from="1753252142648" duration="4247000" />
-      <workItem from="1753259968634" duration="244000" />
-      <workItem from="1753261813320" duration="120000" />
+      <workItem from="1753452407845" duration="3370000" />
+      <workItem from="1753488503535" duration="3595000" />
     </task>
     <servers />
   </component>

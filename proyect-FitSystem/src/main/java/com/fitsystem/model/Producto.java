@@ -91,4 +91,9 @@ public class Producto implements Serializable {
     public void setPrecioUnitario(Double precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
+
+    // METODOS
+    public double calcularValorTotal(int cantidad) {
+        return cantidad * this.precioUnitario;
+    }
 }

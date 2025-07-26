@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "facturas")
@@ -88,15 +89,9 @@ public class Factura implements Serializable {
         this.detalles = detalles;
     }
 
-    public double calcularTotal() {
-        return detalles.stream()
-                       .mapToDouble(DetalleFactura::getSubtotal)
-                       .sum();
-    }
-
-    public void agregarDetalle(DetalleFactura detalle) {
-        detalle.setFactura(this);
-        detalles.add(detalle);
-        this.total = calcularTotal();
-    }
+    
+    public String getFechaFormateada() {
+    if (fecha == null) return "—";
+    return fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+}
 }
